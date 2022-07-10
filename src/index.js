@@ -1,47 +1,28 @@
-import { galleryItems } from './gallery-items.js';
-// Change code below this line
 
-// console.log(galleryItems);
+import { galleryItems } from './gallery-items.js';
+
+
+import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm";
+
+
 const galleryRef = document.querySelector('.gallery');
 // console.log(galleryRef);
+
 const listImage = galleryItems.map(item => `<div class="gallery__item">
-  <a class="gallery__link" href=${item.original}>
+  <a class="gallery__item" href=${item.original}>
     <img
       class="gallery__image"
-      src="${item.preview}"
-      data-source="${item.original}"
+      src="${item.preview}"      
       alt="${item.description}"
+      title="${item.description}"
     />
   </a>
-</div>`).join('')
+</div>`).join('');
 // console.log(listImage);
 galleryRef.insertAdjacentHTML("beforeend", listImage);
 // console.log(galleryRef);
-let getUrl
 galleryRef.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log('Клік');
-    console.log(event.target.dataset.source);
-    getUrl=event.target.dataset.source;
-   
-    console.log(modalImage.element().querySelector('img').src)
-    modalImage.element().querySelector('img').src = getUrl;
-    console.log(modalImage.element().querySelector('img'));
-    modalImage.element().querySelector('img').alt = event.target.alt
-    console.log(event.target.getAttribute('alt'));
-    console.log(event.target.alt);
-    modalImage.show();
+    // console.log('Клік');
 });
-const modalImage = basicLightbox.create(
-    `<img src="" alt="">`,
-    {
-        onShow: () => window.addEventListener('keydown', closeModal),
-        onClose: () => window.removeEventListener('keydown', closeModal)
-    }
-
-)
-function closeModal(event) {
-    if (event.key === 'Escape') {
-        modalImage.close()
-    }
-}
+let lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250});
